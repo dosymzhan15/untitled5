@@ -1,6 +1,6 @@
-import java.util.*;
+import java.util.Objects;
 
-abstract class Question {
+public abstract class Question {
     private String text;
     private int score;
     private String correctAnswer;
@@ -17,15 +17,15 @@ abstract class Question {
 
     public abstract void display();
 
-
     public boolean checkAnswer(String answer) {
+        if (answer == null || answer.trim().isEmpty()) {
+            throw new InvalidAnswerException("Жауап бос болмауы керек!");
+        }
         return correctAnswer.equalsIgnoreCase(answer.trim());
     }
 
     @Override
-    public String toString() {
-        return "Сұрақ: " + text + " [" + score + " балл]";
-    }
+    public String toString() { return "Сұрақ: " + text + " [" + score + " балл]"; }
 
     @Override
     public boolean equals(Object o) {
@@ -36,7 +36,5 @@ abstract class Question {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(text, score);
-    }
+    public int hashCode() { return Objects.hash(text, score); }
 }
