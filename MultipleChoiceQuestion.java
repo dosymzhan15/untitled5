@@ -18,7 +18,6 @@ public class MultipleChoiceQuestion extends Question {
         }
     }
 
-    // JSON функционал для API (Критерий 11)
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("text", getText());

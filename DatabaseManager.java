@@ -39,14 +39,17 @@ public class DatabaseManager implements QuestionRepository {
 
     @Override
     public void saveUserResult(String name, int score) throws DatabaseException {
-        String sql = "INSERT INTO results (candidate_name, final_score) VALUES (?, ?)";
+
+        String sql = "INSERT INTO results (id, candidate_name, final_score, exam_date) VALUES (DEFAULT, ?, ?, CURRENT_TIMESTAMP)";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, name);
             pstmt.setInt(2, score);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseException("Нәтижені сақтау кезінде қате кетті");
+            throw new DatabaseException("Нәтижені сақтау кезінде қате кетті: " + e.getMessage());
         }
     }
 }

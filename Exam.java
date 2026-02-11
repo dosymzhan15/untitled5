@@ -16,7 +16,7 @@ public class Exam {
     }
 
     public void loadQuestions() throws DatabaseException {
-        // Использование Lambda и Generics (Критерий 15)
+
         this.questions = repository.getAllQuestions().stream()
                 .sorted(Comparator.comparingInt(Question::getScore))
                 .collect(Collectors.toList());
@@ -27,7 +27,7 @@ public class Exam {
         int obtainedScore = 0;
         int totalPossible = 0;
 
-        System.out.println("=== " + title + " ===");
+        System.out.println("= " + title + " =");
 
         for (Question q : questions) {
             totalPossible += q.getScore();
@@ -56,7 +56,7 @@ public class Exam {
             System.out.println("Қате: " + e.getMessage());
         }
 
-        // Генерация JSON (Критерий 11)
+
         JSONObject report = new JSONObject();
         report.put("student", candidate.getName());
         report.put("finalScore", obtainedScore);
